@@ -12,11 +12,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start; /* Remonté */
       height: 100vh;
       font-family: 'Segoe UI', sans-serif;
       position: relative;
       text-align: center;
+      padding-top: 60px; /* Ajout d’un padding pour remonter tout le haut */
     }
 
     .balle {
@@ -24,7 +25,7 @@
       height: 40px;
       border-radius: 50%;
       position: absolute;
-      top: 50%;
+      top: 30%; /* abaissé l’origine pour permettre un rebond plus haut */
       animation: rebond 2s ease forwards;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       transition: all 1s ease-in-out;
@@ -47,9 +48,9 @@
       transition: all 1s ease-in-out;
     }
 
-    .pos-vert  { top: 30%; left: 50%; transform: translate(-50%, -50%) rotate(-20deg); }
-    .pos-bleu  { top: 55%; left: 42%; transform: translate(-50%, -50%) rotate(-40deg); }
-    .pos-jaune { top: 55%; left: 58%; transform: translate(-50%, -50%) rotate(40deg); }
+    .pos-vert  { top: 20%; left: 50%; transform: translate(-50%, -50%) rotate(-20deg); }
+    .pos-bleu  { top: 35%; left: 42%; transform: translate(-50%, -50%) rotate(-40deg); }
+    .pos-jaune { top: 35%; left: 58%; transform: translate(-50%, -50%) rotate(40deg); }
 
     .logo {
       opacity: 0;
@@ -57,7 +58,11 @@
       position: absolute;
       width: 200px;
       z-index: 5;
+      top: 38%; /* Remonté le logo */
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
+
     .show-logo {
       opacity: 1;
     }
@@ -65,7 +70,7 @@
     .welcome-message {
       opacity: 0;
       position: absolute;
-      bottom: 120px;
+      top: 52%;
       font-size: 2em;
       font-weight: bold;
       background: linear-gradient(90deg, #3da5d9, #9ac83e, #f4b942, #3da5d9);
@@ -74,7 +79,6 @@
       -webkit-text-fill-color: transparent;
       animation: gradientText 6s ease-in-out infinite, fadeIn 1s ease-in-out forwards;
       animation-delay: 6s;
-      text-align: center;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -92,7 +96,7 @@
     .intro {
       opacity: 0;
       position: absolute;
-      bottom: 80px;
+      top: 63%;
       width: 80%;
       max-width: 600px;
       font-size: 1em;
@@ -104,7 +108,7 @@
     .start-btn {
       opacity: 0;
       position: absolute;
-      bottom: 20px;
+      top: 75%;
       padding: 12px 24px;
       font-size: 1.1em;
       font-weight: bold;
@@ -150,22 +154,17 @@
   </style>
 </head>
 <body>
-  <!-- Logo -->
   <img src="https://ldp1985prod.netlify.app/images/logo_200px.png" alt="Logo Famivest" class="logo" id="logo"/>
 
-  <!-- Balles -->
   <div class="balle vert" id="balleVert"></div>
   <div class="balle bleu" id="balleBleu"></div>
   <div class="balle jaune" id="balleJaune"></div>
 
-  <!-- Message principal -->
   <div class="welcome-message" id="welcomeText">Bienvenue sur <strong>Famivest</strong></div>
 
-  <!-- Petit texte explicatif -->
   <div class="intro">Gérez votre patrimoine familial de manière simple, claire et partagée. Famivest centralise vos biens, vos comptes, vos investissements et les rend accessibles à toute la famille.</div>
 
-  <!-- Bouton animé -->
-  <button class="start-btn" onclick="window.location.href='/app'">
+  <button class="start-btn" onclick="window.location.href='https://famivest.com'">
     <span>Démarrer</span><span class="arrow">→</span>
   </button>
 
@@ -188,3 +187,4 @@
   </script>
 </body>
 </html>
+
