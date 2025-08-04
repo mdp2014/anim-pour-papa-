@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Famivest Animation</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .balle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      animation: rebond 2s ease forwards;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 1s ease-in-out;
+    }
+
+    /* Couleurs initiales */
+    .bleu { background-color: #3da5d9; left: 20%; animation-delay: 0s; }
+    .jaune { background-color: #f4b942; left: 50%; animation-delay: 0.3s; }
+    .vert { background-color: #9ac83e; right: 20%; animation-delay: 0.6s; }
+
+    @keyframes rebond {
+      0%   { transform: translateY(0) scale(1); }
+      25%  { transform: translateY(-60px) scale(1.1); }
+      50%  { transform: translateY(0) scale(1); }
+      75%  { transform: translateY(-30px) scale(1.05); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    .transition {
+      animation: none !important;
+      transition: all 1s ease-in-out;
+    }
+
+    /* Position fausses palmes (juste après rebond) */
+    .pos-vert   { top: 30%; left: 50%; transform: translate(-50%, -50%) rotate(-20deg); }
+    .pos-bleu   { top: 55%; left: 42%; transform: translate(-50%, -50%) rotate(-40deg); }
+    .pos-jaune  { top: 55%; left: 58%; transform: translate(-50%, -50%) rotate(40deg); }
+
+    /* Fausses palmes restent des cercles */
+
+    /* Vraies palmes (pour référence future) */
+    .feuille {
+      width: 60px;
+      height: 80px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      opacity: 0.9;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      background-clip: border-box;
+      -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+      mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+      background: none;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .feuille-arc {
+      background: linear-gradient(
+        270deg,
+        #3da5d9,
+        #9ac83e,
+        #f4b942,
+        #3da5d9,
+        #9ac83e,
+        #f4b942
+      );
+      background-size: 600% 600%;
+      animation: arcenciel 8s ease infinite;
+    }
+
+    @keyframes arcenciel {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Logo */
+    .logo {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+      width: 200px;
+      z-index: 5;
+    }
+    .show-logo {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://ldp1985prod.netlify.app/images/logo_200px.png" alt="Logo Famivest" class="logo" id="logo"/>
+
+  <!-- Fausses palmes : les balles -->
+  <div class="balle vert" id="balleVert"></div>
+  <div class="balle bleu" id="balleBleu"></div>
+  <div class="balle jaune" id="balleJaune"></div>
+
+  <script>
+    // 1) Rebonds automatiques avec animation CSS
+
+    // 2) Dès la fin du rebond (2s), on positionne et transforme en fausses palmes (cercles fixes)
+    setTimeout(() => {
+      document.getElementById('balleVert').classList.add('transition', 'pos-vert');
+      document.getElementById('balleBleu').classList.add('transition', 'pos-bleu');
+      document.getElementById('balleJaune').classList.add('transition', 'pos-jaune');
+    }, 2000);
+
+    // 3) 5 secondes après la transformation en fausses palmes (donc à 7s), on affiche le logo
+    // réduit de 3 secondes => 4 secondes après (2s + 4s = 6s)
+    setTimeout(() => {
+      document.getElementById('logo').classList.add('show-logo');
+    }, 6000);
+
+    // 4) 1 seconde après apparition logo (à 8s), on fait disparaître les fausses palmes
+    // réduit de 3 secondes => 1 seconde après logo (6s + 1s = 7s)
+    setTimeout(() => {
+      ['balleVert', 'balleBleu', 'balleJaune'].forEach(id => {
+        const el = document.getElementById(id);
+        el.style.opacity = '0';
+      });
+    }, 6000);
+  </script>
+</body>
+</html>
+
+
